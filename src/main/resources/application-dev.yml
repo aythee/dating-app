@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:D:\dating_app_bd.db
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      username: ${USER}
+      password: ${PASS}
