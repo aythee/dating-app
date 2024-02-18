@@ -23,4 +23,9 @@ public class ProfileServiceImpl implements ProfileService {
     public ProfileDto findProfileById(Long id) {
         return profileRepository.getProfileById(id);
     }
+
+    @Override
+    public int createProfile(ProfileDto profileDto) {
+        return profileRepository.createProfile(profileDto);
+    }
 }

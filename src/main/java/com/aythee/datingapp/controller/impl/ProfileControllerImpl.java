@@ -25,8 +25,16 @@ public class ProfileControllerImpl implements ProfileController {
     @Override
     public Map<String, Object> getProfile(Long id) {
         final Map<String, Object> result = new HashMap<>();
-        ProfileDto profile = profileService.findProfileById(id);
+        final ProfileDto profile = profileService.findProfileById(id);
         result.put("profile", profile);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> createProfile(ProfileDto profileDto) {
+        final Map<String, Object> result = new HashMap<>();
+        final int created = profileService.createProfile(profileDto);
+        result.put("created",created);
         return result;
     }
 }

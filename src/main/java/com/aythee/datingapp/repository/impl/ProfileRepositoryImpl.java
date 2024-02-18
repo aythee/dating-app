@@ -32,8 +32,14 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     }
 
     @Override
-    public Long createProfile(ProfileDto profileDto) {
-        return null;
+    public int createProfile(ProfileDto profileDto) {
+        final SqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("id", profileDto.getId())
+                .addValue("user_id", profileDto.getUserId())
+                .addValue("profile_photo", profileDto.getProfilePhoto())
+                .addValue("bio", profileDto.getBio());
+       return namedParameterJdbcTemplate.update("insert into profile values (:id, :user_id, :profile_photo, :bio)",
+               namedParameters);
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface ProfileRepository {
 
     ProfileDto getProfileById(Long id);
 
-    Long createProfile(ProfileDto profileDto);
+    int createProfile(ProfileDto profileDto);
 
     boolean updateProfile(ProfileDto profileDto);
 

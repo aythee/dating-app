@@ -6,5 +6,7 @@ public interface ProfileService {
 
     ProfileDto findProfileById(Long id);
 
+    int createProfile(ProfileDto profileDto);
+
 
 }
