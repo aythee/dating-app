@@ -8,11 +8,13 @@ import java.time.LocalDateTime;
 public class UserDto {
 
     private Long id;
-    private String userName;
+    private String username;
     private String email;
+    private String password;
     private Integer age;
     private String gender;
     private String location;
-    private LocalDateTime created;
+    //todo rework name of field or getter
+    private LocalDateTime created_at;
 
 }

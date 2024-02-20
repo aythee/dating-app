@@ -43,7 +43,7 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     }
 
     @Override
-    public boolean updateProfile(ProfileDto profileDto) {
+    public boolean updateProfile(Long id, ProfileDto profileDto) {
         return false;
     }
 }

@@ -8,6 +8,6 @@ public interface ProfileRepository {
 
     int createProfile(ProfileDto profileDto);
 
-    boolean updateProfile(ProfileDto profileDto);
+    boolean updateProfile(Long id, ProfileDto profileDto);
 
 }
