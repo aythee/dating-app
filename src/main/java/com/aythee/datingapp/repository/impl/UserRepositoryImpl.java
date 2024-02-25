@@ -2,12 +2,14 @@ package com.aythee.datingapp.repository.impl;
 
 import com.aythee.datingapp.dto.UserDto;
 import com.aythee.datingapp.repository.UserRepository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 @Repository
@@ -29,12 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
                 .addValue("email", dto.getEmail())
                 .addValue("password",
                         Base64.getEncoder().encodeToString(dto.getPassword().getBytes()))
-                .addValue("gender", dto.getGender())
-                .addValue("age",dto.getAge())
-                .addValue("location",dto.getLocation())
-                .addValue("created_at",dto.getCreated_at());
-        return namedParameterJdbcTemplate.update("insert into users (username, email, password, age, gender, location, created_at) values(:username, :email, :password, " +
-                ":age, :gender, :location, :created_at)", namedParameters) == 1;
+                .addValue("created_at", LocalDateTime.now());
+        return namedParameterJdbcTemplate.update("insert into users (email, password, created_at) values(:email, :password, " +
+                ":created_at)", namedParameters) == 1;
     }
 
     @Override
@@ -47,6 +46,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean updateUser(UserDto dto) {
         return false;
+    }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        final SqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("email", email);
+        return namedParameterJdbcTemplate.queryForObject("select * from users where email = :email", namedParameters, new BeanPropertyRowMapper<>(UserDto.class));
     }
 
 

@@ -1,20 +1,55 @@
 package com.aythee.datingapp.dto;
 
-import lombok.Data;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
-public class UserDto {
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto implements UserDetails {
 
     private Long id;
-    private String username;
     private String email;
     private String password;
-    private Integer age;
     private String gender;
     private String location;
     //todo rework name of field or getter
-    private LocalDateTime created_at;
+    private Timestamp created_at;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public String getUsername() {
+        return getEmail();
+    }
 }

@@ -9,4 +9,6 @@ public interface UserRepository {
     boolean deleteUser(UserDto dto);
 
     boolean updateUser(UserDto dto);
+
+    UserDto findByEmail(String email);
 }

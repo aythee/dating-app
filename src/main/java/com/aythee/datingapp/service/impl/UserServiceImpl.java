@@ -6,6 +6,8 @@ import com.aythee.datingapp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -49,5 +51,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public String updateUser(UserDto dto) {
         return null;
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public UserDto getCurrentUser() {
+        // Получение имени пользователя из контекста Spring Security
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return getUserByEmail(username);
+    }
+
+    public UserDetailsService userDetailsService() {
+        return this::getUserByEmail;
     }
 }

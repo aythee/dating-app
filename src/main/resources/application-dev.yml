@@ -1,7 +1,11 @@
 spring:
   datasource:
-    url: jdbc:sqlite:C:\Users\aythee\Downloads\dating_app_bd.db
+    url: jdbc:sqlite:D:\Programs\IdeaProjects\dating-database\dating_app_bd.db
     driver-class-name: org.sqlite.JDBC
     hikari:
       username: ${USER}
       password: ${PASS}
+
+app:
+  jwt:
+    signkey: ${JWT_SIGN_KEY}
