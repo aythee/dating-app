@@ -1,5 +1,6 @@
 package com.aythee.datingapp.service;
 
+import com.aythee.datingapp.dto.ErrorDTO;
 import com.aythee.datingapp.service.impl.JwtServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Получаем токен из заголовка
         final String authHeader = request.getHeader(HEADER_NAME);
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, BEARER_PREFIX)) {
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            response.setContentType("application/json");
+//            response.getWriter().print(new ErrorDTO("Unauthorized!","You trying to access page without auth token"));
+//            response.getWriter().close();
+       //TODO 14.03.24 send prettified error message with errorDto
             filterChain.doFilter(request, response);
             return;
         }
